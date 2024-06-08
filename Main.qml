@@ -1,174 +1,156 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.LocalStorage
+//import QtQuick.Controls.Styles
+//import QtQuick.LocalStorage
 import todo_manager
 
 Window {
     width: 1280
     height: 720
     visible: true
-    title: qsTr("Hello World")
+    color: "#151515"
+    title: qsTr("TODO")
 
     TaskManager {
         id: appBridge
     }
 
+    Component.onCompleted: {
+        //здесь загружается сохранение
+        /*for (var i = appBridge.dataBegin(); i <= appBridge.dataEnd(); i++) {
+            todoModel.append({ "_name": i.m_name, "_desc": i.m_description, "_iscompleted": i.m_isCompleted, "_date": i.m_datetime})
+        }*/
+    }
+    /*Component.onDestroyed: {
+        appBridge.saveData()
+    }*/
+
     ListModel {
-            id: todoModel
+        id: todoModel
+    }
+
+    Item {
+        anchors.fill: parent
+
+        Rectangle {
+            id: topBar
+            height: 100
+            width: parent.width
+            color: "#301B3F"
+            anchors.top: parent.top
+            radius: 30
+
+            Rectangle {
+                id: addbutton
+                color: "green"
+                height: 50
+                width: 50
+                anchors.left: topBar.left
+                anchors.leftMargin: 70
+                anchors.verticalCenter: topBar.verticalCenter
+                anchors.margins: 10
+                radius: 40
+                MouseArea {
+                    anchors.fill: addbutton
+                    onClicked: appBridge.saveData()
+                }
+            }
+            Text {
+                text: "Ручное сохранение"
+                color: "white"
+                font.pointSize: 20
+                anchors.top: addbutton.bottom
+                anchors.horizontalCenter: addbutton.horizontalCenter
+            }
         }
 
         Item {
-            anchors.fill: parent
+            width: parent.width
+            anchors.bottom: parent.bottom
+            anchors.top: topBar.bottom
 
             Rectangle {
-                id: topBar
-                height: 100
-                width: parent.width
-                color: "red"
-                anchors.top: parent.top
-            }
+                id: todo
+                height: parent.height
+                width: parent.width * 0.47
+                anchors.right: parent.right
+                radius: 30
+                color: "#3C415C"
 
-            Item {
-                width: parent.width
-                anchors.bottom: parent.bottom
-                anchors.top: topBar.bottom
-
-                Rectangle {
-                    id: todo
-                    height: parent.height
-                    width: parent.width * 0.5
-                    anchors.left: parent.left
-                    color: "#808080"
-
-                    ListView {
-                        id:lView
-                        model: todoModel
-
-                        spacing: 5
-                        anchors.centerIn: parent
-                        width: todo.width * 0.65
-                        height: todo.height * 0.8
-                        delegate: Rectangle {
-                            id: delegator
-                            width: lView.width
-                            height: 100
-                            color: "#696969"
-                            radius: 10
-
-                            //переменные делегатора, определяют содержимое задачи
-                            property string name
-                            property string description
-                            property date date
-                            property bool iscompleted
-
-                            //в дальнейшем значения присваиваются по ключу с префиксом _
-                            name: _name
-                            description: _desc
-                            date: _date
-                            iscompleted: _iscompleted
-
-                            //кнопка удаления задачи
-                            Rectangle {
-                                color: "red"
-                                radius: 10
-                                width: 50
-                                height: delegator.height
-                                anchors.right: delegator.right
-
-                                MouseArea {
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        console.log(index)
-                                        todoModel.remove(index)
-                                        //Операция удаления
-
-
-                                    }
-                                }
-                            }
-
-                            CheckBox {
-                                width: 30
-                                height: 30
-                                anchors.left: delegator.left
-                                checked: delegator.iscompleted
-                            }
-
-                            //колонка с данными задачи
-                            Column {
-                                anchors.fill: parent
-                                anchors.leftMargin: 40
-                                anchors.rightMargin: 50
-                                anchors.topMargin: 5
-                                anchors.bottomMargin: 5
-
-                                Text {
-                                    color: "black"
-                                    font.bold: true
-                                    font.pixelSize: 20
-                                    text: delegator.name
-                                }
-
-                                Text {
-                                    color: "black"
-                                    font.bold: true
-                                    font.pixelSize: 17
-                                    text: delegator.description
-                                }
-
-                                Text {
-                                    color: "black"
-                                    font.bold: true
-                                    font.pixelSize: 17
-                                    text: delegator.date
-                                }
-                            }
-                        }
+                ListView {
+                    id:lView
+                    model: todoModel
+                    spacing: 5
+                    anchors.centerIn: parent
+                    width: todo.width * 0.65
+                    height: todo.height * 0.8
+                    delegate: Delegator {
+                        id: delegator
+                        width: lView.width
+                        height: 100
+                        color: "#301B3F"
+                        radius: 10
                     }
                 }
+            }
 
-                Item {
-                    id: controlPanel
-                    height: parent.height
-                    width: parent.width * 0.5
-                    anchors.right: parent.right
-                    Column {
-                        anchors.top: parent.top
-                        anchors.topMargin: 50
-                        spacing: 50
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        TextField {
-                            id: nameField
-                            placeholderText: "Введите имя..."
-                            height: 100
-                            width: controlPanel.width * 0.65
-                            color: "black"
+            Rectangle {
+                id: controlPanel
+                height: parent.height
+                width: parent.width * 0.47
+                anchors.left: parent.left
+                radius: 30
+                color: "#3C415C"
+                Column {
+                    anchors.top: parent.top
+                    anchors.topMargin: 50
+                    spacing: 50
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    TextField {
+                        id: nameField
+                        placeholderText: "Введите имя..."
+                        font.pointSize: 30
+                        height: 100
+                        width: controlPanel.width * 0.65
+                        color: "#B4A5A5"
+                    }
+
+                    TextArea {
+                        id:descArea
+                        placeholderText: "Введите описание..."
+                        font.pointSize: 20
+                        color: "#B4A5A5"
+                        width: controlPanel.width * 0.65
+                        height: 200
+
+                    }
+
+                    Button {
+                        height: 100
+                        width: controlPanel.width * 0.65
+                        contentItem: Text {
+                            anchors.fill: parent
+                            text: qsTr("Добавить")
+                            font.pointSize: 50
+                            opacity: enabled
+                            color: "#B4A5A5"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
                         }
 
-                        TextArea {
-                            id:descArea
-                            placeholderText: "Введите описание..."
-                            width: controlPanel.width * 0.65
-                            height: 200
-                        }
+                        onClicked: {
+                            var currentDate  = new Date();
+                            todoModel.append({ "_name": nameField.text, "_desc": descArea.text, "_iscompleted": false, "_date": currentDate})
+                            //Передача аргументов в C++: объект типа Task
+                            appBridge.setData(nameField.text, descArea.text, currentDate, false)
 
-                        Button {
-                            text: "+"
-                            height: 100
-                            width: controlPanel.width * 0.65
-                            onClicked: {
-                                var currentDate  = new Date();
-                                todoModel.append({ "_name": nameField.text, "_desc": descArea.text, "_iscompleted": false, "_date": currentDate})
-                                //Передача аргументов в C++: объект типа Task
-                                appBridge.setData(nameField.text, descArea.text, currentDate, false)
-
-                                //Сброс полей ввода во избежание коллизий
-                                nameField.text = ""
-                                descArea.text = ""
-                            }
+                            //Сброс полей ввода во избежание коллизий
+                            nameField.text = ""
+                            descArea.text = ""
                         }
                     }
                 }
             }
         }
+    }
 }

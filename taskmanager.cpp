@@ -2,16 +2,13 @@
 
 TaskManager::TaskManager(QObject *parent)
     : QObject{parent}
-{}
-
-Task TaskManager::data() const
 {
-
+    qDebug() << "Called TaskManager construct";
 }
 
 void TaskManager::setData(const QString& f_name, const QString& f_description, const QDateTime& f_datetime, const bool& f_isCompleted)
 {
-    currentTask = new Task();// тут мог бы быть segfault :)
+    currentTask =  std::make_unique<Task>();// тут мог бы быть segfault :)
     currentTask->m_name = f_name;
     currentTask->m_description = f_description;
     currentTask->m_datetime = f_datetime;
@@ -23,8 +20,24 @@ void TaskManager::setData(const QString& f_name, const QString& f_description, c
         qDebug() << i.m_datetime;
         qDebug() << i.m_isCompleted;
     }//проверка корректности данных
-    delete currentTask;
-    emit dataChanged();
+};
+
+QVector<Task>::iterator TaskManager::dataBegin()
+{
+    return m_data.begin();
+};
+
+QVector<Task>::iterator TaskManager::dataEnd()
+{
+    return m_data.end();
 }
+
+void TaskManager::saveData()
+{
+    qDebug() << "Called savedata";
+    for (auto& i : m_data){
+    //запись вектора в QFile
+    }
+};
 
 

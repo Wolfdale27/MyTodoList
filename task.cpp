@@ -2,7 +2,7 @@
 
 
 
-Task &Task::operator=(const Task &other)
+Task &Task::operator=(const Task& other)
 {
     if (this == &other)
         return *this;
@@ -15,7 +15,7 @@ Task &Task::operator=(const Task &other)
     return *this;
 }
 
-bool Task::operator==(const Task &other) const
+bool Task::operator==(const Task& other) const
 {
     return m_name == other.m_name &&
            m_description == other.m_description &&
