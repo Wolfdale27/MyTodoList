@@ -3,9 +3,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import Qt.labs.settings 1.0
-//import QtQuick.Controls.Styles
-//import QtQuick.LocalStorage
-import todo_manager
+
+//import todo_manager
 
 Window {
     width: 1280
@@ -37,10 +36,6 @@ Window {
         }
         settings.setValue("todoData", JSON.stringify(dataSaver))
         console.log("Called closing")
-    }
-
-    TaskManager {
-        id: appBridge
     }
 
     ListModel {
@@ -132,7 +127,7 @@ Window {
                             var currentDate  = new Date();
                             todoModel.append({ "_name": nameField.text, "_desc": descArea.text, "_iscompleted": false, "_date": currentDate})
                             //Передача аргументов в C++: объект типа Task
-                            appBridge.setData(nameField.text, descArea.text, currentDate, false)
+                            //Отключено appBridge.setData(nameField.text, descArea.text, currentDate, false)
 
                             //Сброс полей ввода во избежание коллизий
                             nameField.text = ""
@@ -144,3 +139,4 @@ Window {
         }
     }
 }
+

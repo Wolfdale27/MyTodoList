@@ -6,7 +6,8 @@
 
 struct Task
 {
-    Task() {}
+    Task() = default;
+    ~Task() = default;
     QString m_name;
     QString m_description;
     QDateTime m_datetime;

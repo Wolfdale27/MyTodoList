@@ -23,6 +23,7 @@ Rectangle {
         width: 50
         height: delegator.height
         anchors.right: delegator.right
+
         Image {
             anchors.centerIn: parent
             anchors.margins: 5
@@ -34,11 +35,9 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                //Операция удаления
                 console.log(index)
                 todoModel.remove(index)
-                //Операция удаления
-
-
             }
         }
     }
