@@ -45,8 +45,8 @@ Rectangle {
     CheckBox {
         width: 30
         height: 30
-        indicator.width: 64
-        indicator.height: 64
+        indicator.width: 20
+        indicator.height: 20
         anchors.left: delegator.left
         checked: delegator.iscompleted
     }
@@ -76,7 +76,7 @@ Rectangle {
         Text {
             color: "#B4A5A5"
             font.bold: true
-            font.pixelSize: 17
+            font.pixelSize: 15
             text: delegator.date
         }
     }

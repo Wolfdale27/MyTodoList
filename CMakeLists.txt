@@ -14,7 +14,7 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
 qt_standard_project_setup()
 
-
+#Блок опциональной интеграции
 
 if (${MY_CPP_INTEGRAION})
     qt_add_executable(apptodo_manager

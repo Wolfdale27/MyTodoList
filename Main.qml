@@ -99,7 +99,7 @@ Window {
                     TextField {
                         id: nameField
                         placeholderText: "Введите имя..."
-                        font.pointSize: 30
+                        font.pointSize: 25
                         height: 100
                         width: controlPanel.width * 0.65
                         color: "#B4A5A5"
@@ -121,7 +121,7 @@ Window {
                         contentItem: Text {
                             anchors.fill: parent
                             text: qsTr("Добавить")
-                            font.pointSize: 50
+                            font.pointSize: 30
                             opacity: enabled
                             color: "#B4A5A5"
                             horizontalAlignment: Text.AlignHCenter
