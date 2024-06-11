@@ -18,6 +18,18 @@ Window {
         id: settings
     }
 
+    onClosing: {
+
+        var dataSaver = []
+        for (var i =0; i < todoModel.count; ++i) {
+            dataSaver.push(todoModel.get(i))
+        }
+        settings.setValue("todoData", JSON.stringify(dataSaver))
+        console.log("Called closing")
+    }
+
+
+
     Component.onCompleted: {
         var storage = settings.value("todoData")
         if (storage) {
@@ -30,14 +42,7 @@ Window {
         console.log("Called completed")
     }
 
-    onClosing: {
-        var dataSaver = []
-        for (var i =0; i < todoModel.count; ++i) {
-            dataSaver.push(todoModel.get(i))
-        }
-        settings.setValue("todoData", JSON.stringify(dataSaver))
-        console.log("Called closing")
-    }
+
 
     TaskManager {
         id: appBridge

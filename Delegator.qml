@@ -45,8 +45,8 @@ Rectangle {
     CheckBox {
         width: 30
         height: 30
-        indicator.width: 20
-        indicator.height: 20
+        indicator.width: 40
+        indicator.height: 40
         anchors.left: delegator.left
         checked: delegator.iscompleted
     }
