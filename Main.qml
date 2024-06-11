@@ -135,7 +135,7 @@ Window {
 
                         onClicked: {
                             var currentDate  = new Date();
-                            todoModel.append({ "_name": nameField.text, "_desc": descArea.text, "_iscompleted": false, "_date": currentDate})
+                            todoModel.append({ "_name": nameField.text, "_desc": descArea.text, "_iscompleted": false, "_date": currentDate.toDateString()})
                             //Передача аргументов в C++: объект типа Task
                             appBridge.setData(nameField.text, descArea.text, currentDate, false)
 

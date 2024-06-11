@@ -7,7 +7,7 @@ Rectangle {
     //переменные делегатора, определяют содержимое задачи
     property string name
     property string description
-    property date date
+    property string date
     property bool iscompleted
 
     //в дальнейшем значения присваиваются по ключу с префиксом _

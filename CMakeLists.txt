@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(todo_manager VERSION 0.1 LANGUAGES CXX)
 
 #Нереализованная часть обработки на C++( альтернативный вариант), можно отключить
-set(MY_CPP_INTEGRAION ON)
+set(MY_CPP_INTEGRATION ON)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOUIC ON)
@@ -16,7 +16,7 @@ qt_standard_project_setup()
 
 #Блок опциональной интеграции
 
-if (${MY_CPP_INTEGRAION})
+if (${MY_CPP_INTEGRATION})
     qt_add_executable(apptodo_manager
         main.cpp
     )
