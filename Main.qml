@@ -17,7 +17,7 @@ Window {
     Settings {
         id: settings
     }
-
+    //@disable-check M16
     onClosing: {
 
         var dataSaver = []
